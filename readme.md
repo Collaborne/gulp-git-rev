@@ -1,4 +1,4 @@
-# gulp-git-rev [![Build Status](https://travis-ci.org/Collaborne/gulp-rev.svg?branch=master)](https://travis-ci.org/Collaborne/gulp-rev)
+# gulp-git-rev [![Build Status](https://travis-ci.org/Collaborne/gulp-git-rev.svg?branch=master)](https://travis-ci.org/Collaborne/gulp-git-rev)
 
 > Static asset revisioning by appending the git SHA1 hash to filenames
 > `unicorn.css` → `unicorn-d41d8cd98f.css`
