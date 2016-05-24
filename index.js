@@ -4,10 +4,10 @@ var gutil = require('gulp-util');
 var through = require('through2');
 var objectAssign = require('object-assign');
 var file = require('vinyl-file');
-var revHash = require('rev-hash');
 var revPath = require('rev-path');
 var sortKeys = require('sort-keys');
 var modifyFilename = require('modify-filename');
+var git = require('git-rev');
 
 function relPath(base, filePath) {
 	if (filePath.indexOf(base) !== 0) {
@@ -40,11 +40,11 @@ function getManifestFile(opts, cb) {
 	});
 }
 
-function transformFilename(file) {
+function transformFilename(file, hash) {
 	// save the old path for later
 	file.revOrigPath = file.path;
 	file.revOrigBase = file.base;
-	file.revHash = revHash(file.contents);
+	file.revHash = hash;
 
 	file.path = modifyFilename(file.path, function (filename, extension) {
 		var extIndex = filename.indexOf('.');
@@ -57,9 +57,38 @@ function transformFilename(file) {
 	});
 }
 
-var plugin = function () {
+function processSourceMaps(sourcemaps, pathMap, gitRev) {
+	return sourcemaps.map(function (file) {
+		var reverseFilename;
+
+		// attempt to parse the sourcemap's JSON to get the reverse filename
+		try {
+			reverseFilename = JSON.parse(file.contents.toString()).file;
+		} catch (err) {}
+
+		if (!reverseFilename) {
+			reverseFilename = path.relative(path.dirname(file.path), path.basename(file.path, '.map'));
+		}
+
+		if (pathMap[reverseFilename]) {
+			// save the old path for later
+			file.revOrigPath = file.path;
+			file.revOrigBase = file.base;
+
+			var hash = pathMap[reverseFilename];
+			file.path = revPath(file.path.replace(/\.map$/, ''), hash) + '.map';
+		} else {
+			transformFilename(file, gitRev);
+		}
+
+		return file;
+	});
+}
+
+var plugin = function (rev) {
 	var sourcemaps = [];
 	var pathMap = {};
+	var gitRev = rev;
 
 	return through.obj(function (file, enc, cb) {
 		if (file.isNull()) {
@@ -80,38 +109,35 @@ var plugin = function () {
 		}
 
 		var oldPath = file.path;
-		transformFilename(file);
-		pathMap[oldPath] = file.revHash;
+		if (gitRev) {
+			transformFilename(file, gitRev);
+			pathMap[oldPath] = file.revHash;
 
-		cb(null, file);
+			cb(null, file);
+		} else {
+			git.short(function (str) {
+				gitRev = str;
+
+				transformFilename(file, gitRev);
+				pathMap[oldPath] = file.revHash;
+
+				cb(null, file);
+			});
+		}
 	}, function (cb) {
-		sourcemaps.forEach(function (file) {
-			var reverseFilename;
-
-			// attempt to parse the sourcemap's JSON to get the reverse filename
-			try {
-				reverseFilename = JSON.parse(file.contents.toString()).file;
-			} catch (err) {}
-
-			if (!reverseFilename) {
-				reverseFilename = path.relative(path.dirname(file.path), path.basename(file.path, '.map'));
-			}
-
-			if (pathMap[reverseFilename]) {
-				// save the old path for later
-				file.revOrigPath = file.path;
-				file.revOrigBase = file.base;
-
-				var hash = pathMap[reverseFilename];
-				file.path = revPath(file.path.replace(/\.map$/, ''), hash) + '.map';
-			} else {
-				transformFilename(file);
-			}
-
-			this.push(file);
-		}, this);
-
-		cb();
+		if (gitRev) {
+			processSourceMaps(sourcemaps, pathMap, gitRev).forEach(function (file) {
+				this.push(file);
+			}, this);
+			cb();
+		} else {
+			git.short(function (str) {
+				processSourceMaps(sourcemaps, pathMap, str).forEach(function (file) {
+					this.push(file);
+				}, this);
+				cb();
+			});
+		}
 	});
 };
 

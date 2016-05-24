@@ -5,7 +5,7 @@ var gutil = require('gulp-util');
 var rev = require('./');
 
 it('should rev files', function (cb) {
-	var stream = rev();
+	var stream = rev('d41d8cd98f');
 
 	stream.on('data', function (file) {
 		assert.equal(file.path, 'unicorn-d41d8cd98f.css');
@@ -20,7 +20,7 @@ it('should rev files', function (cb) {
 });
 
 it('should add the revision hash before the first `.` in the filename', function (cb) {
-	var stream = rev();
+	var stream = rev('d41d8cd98f');
 
 	stream.on('data', function (file) {
 		assert.equal(file.path, 'unicorn-d41d8cd98f.css.map');
@@ -246,7 +246,7 @@ it('should respect files coming from directories with different bases', function
 });
 
 it('should store the hashes for later', function (cb) {
-	var stream = rev();
+	var stream = rev('d41d8cd98f');
 
 	stream.on('data', function (file) {
 		assert.equal(file.path, 'unicorn-d41d8cd98f.css');
@@ -262,7 +262,7 @@ it('should store the hashes for later', function (cb) {
 });
 
 it('should handle sourcemaps transparently', function (cb) {
-	var stream = rev();
+	var stream = rev('d41d8cd98f');
 
 	stream.on('data', function (file) {
 		if (path.extname(file.path) === '.map') {
@@ -283,7 +283,7 @@ it('should handle sourcemaps transparently', function (cb) {
 });
 
 it('should handle unparseable sourcemaps correctly', function (cb) {
-	var stream = rev();
+	var stream = rev('d41d8cd98f');
 
 	stream.on('data', function (file) {
 		if (path.extname(file.path) === '.map') {
@@ -304,7 +304,7 @@ it('should handle unparseable sourcemaps correctly', function (cb) {
 });
 
 it('should be okay when the optional sourcemap.file is not defined', function (cb) {
-	var stream = rev();
+	var stream = rev('d41d8cd98f');
 
 	stream.on('data', function (file) {
 		if (path.extname(file.path) === '.map') {
@@ -325,7 +325,7 @@ it('should be okay when the optional sourcemap.file is not defined', function (c
 });
 
 it('should handle a . in the folder name', function (cb) {
-	var stream = rev();
+	var stream = rev('d41d8cd98f');
 
 	stream.on('data', function (file) {
 		assert.equal(file.path, 'mysite.io/unicorn-d41d8cd98f.css');
