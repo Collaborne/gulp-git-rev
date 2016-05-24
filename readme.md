@@ -1,6 +1,6 @@
-# gulp-rev [![Build Status](https://travis-ci.org/sindresorhus/gulp-rev.svg?branch=master)](https://travis-ci.org/sindresorhus/gulp-rev) [![Gitter](https://badges.gitter.im/join_chat.svg)](https://gitter.im/sindresorhus/gulp-rev)
+# gulp-git-rev [![Build Status](https://travis-ci.org/Collaborne/gulp-rev.svg?branch=master)](https://travis-ci.org/Collaborne/gulp-rev)
 
-> Static asset revisioning by appending content hash to filenames
+> Static asset revisioning by appending the git SHA1 hash to filenames
 > `unicorn.css` → `unicorn-d41d8cd98f.css`
 
 Make sure to set the files to [never expire](http://developer.yahoo.com/performance/rules.html#expires) for this to have an effect.
@@ -9,7 +9,7 @@ Make sure to set the files to [never expire](http://developer.yahoo.com/performa
 ## Install
 
 ```
-$ npm install --save-dev gulp-rev
+$ npm install --save-dev gulp-git-rev
 ```
 
 
@@ -17,7 +17,7 @@ $ npm install --save-dev gulp-rev
 
 ```js
 var gulp = require('gulp');
-var rev = require('gulp-rev');
+var rev = require('gulp-git-rev');
 
 gulp.task('default', function () {
 	return gulp.src('src/*.css')
