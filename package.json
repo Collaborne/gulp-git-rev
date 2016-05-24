@@ -1,15 +1,20 @@
 {
-  "name": "gulp-rev",
+  "name": "gulp-git-rev",
   "version": "7.0.0",
-  "description": "Static asset revisioning by appending content hash to filenames: unicorn.css => unicorn-d41d8cd98f.css",
+  "description": "Static asset revisioning by appending the git SHA1 hash to filenames: unicorn.css => unicorn-d41d8cd98f.css",
   "license": "MIT",
-  "repository": "sindresorhus/gulp-rev",
+  "repository": "Collaborne/gulp-git-rev",
   "author": {
-    "name": "Sindre Sorhus",
-    "email": "sindresorhus@gmail.com",
-    "url": "sindresorhus.com"
+    "name": "Collaborne",
+    "email": "opensource@collaborne.com",
+    "url": "http://collaborne.github.io/"
   },
-  "maintainers": [
+  "contributors": [
+    {
+      "name": "Sindre Sorhus",
+      "email": "sindresorhus@gmail.com",
+      "url": "sindresorhus.com"
+    },
     {
       "name": "Justin Hileman",
       "email": "justin@justinhileman.info",
@@ -56,7 +61,8 @@
     "expire",
     "static",
     "asset",
-    "assets"
+    "assets",
+    "git"
   ],
   "dependencies": {
     "gulp-util": "^3.0.0",
