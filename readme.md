@@ -1,6 +1,4 @@
-# gulp-git-rev [![Build Status](https://travis-ci.org/Collaborne/gulp-git-rev.svg?branch=master)](https://travis-ci.org/Collaborne/gulp-git-rev)
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/Collaborne/gulp-git-rev.svg)](https://greenkeeper.io/)
+# gulp-git-rev [![Build Status](https://travis-ci.org/Collaborne/gulp-git-rev.svg?branch=master)](https://travis-ci.org/Collaborne/gulp-git-rev) [![Greenkeeper badge](https://badges.greenkeeper.io/Collaborne/gulp-git-rev.svg)](https://greenkeeper.io/)
 
 > Static asset revisioning by appending the git SHA1 hash to filenames
 > `unicorn.css` → `unicorn-d41d8cd98f.css`
