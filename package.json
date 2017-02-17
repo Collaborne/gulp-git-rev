@@ -11,6 +11,10 @@
   },
   "contributors": [
     {
+      "name": "Andreas Kohn",
+      "email": "andreas.kohn@collaborne.com"
+    },
+    {
       "name": "Sindre Sorhus",
       "email": "sindresorhus@gmail.com",
       "url": "sindresorhus.com"
