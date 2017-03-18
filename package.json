@@ -80,7 +80,7 @@
   },
   "devDependencies": {
     "mocha": "*",
-    "xo": "*"
+    "xo": "0.17.1"
   },
   "xo": {
     "envs": [
