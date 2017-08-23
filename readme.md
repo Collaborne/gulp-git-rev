@@ -9,7 +9,7 @@ Make sure to set the files to [never expire](http://developer.yahoo.com/performa
 ## Install
 
 ```
-$ npm install --save-dev gulp-git-rev
+$ npm install --save-dev Collaborne/gulp-git-rev#master
 ```
 
 
