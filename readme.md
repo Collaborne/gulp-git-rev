@@ -1,3 +1,5 @@
+**Note: This plugin is obsolete and unmaintained. [Collaborne/gulp-inject-git-rev](https://github.com/Collaborne/gulp-inject-git-rev) can be a suitable replacement in some cases.**
+
 # gulp-git-rev [![Build Status](https://travis-ci.org/Collaborne/gulp-git-rev.svg?branch=master)](https://travis-ci.org/Collaborne/gulp-git-rev) [![Greenkeeper badge](https://badges.greenkeeper.io/Collaborne/gulp-git-rev.svg)](https://greenkeeper.io/)
 
 > Static asset revisioning by appending the git SHA1 hash to filenames
